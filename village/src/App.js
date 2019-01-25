@@ -5,6 +5,7 @@ import { Route, Link, NavLink } from "react-router-dom";
 import "./App.css";
 import SmurfForm from "./components/SmurfForm";
 import Smurfs from "./components/Smurfs";
+import Nav from "./components/Nav";
 
 class App extends Component {
   constructor(props) {
@@ -59,8 +60,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Nav />
         <Route
-          exact
           path="/smurf-form"
           render={props => (
             <SmurfForm
