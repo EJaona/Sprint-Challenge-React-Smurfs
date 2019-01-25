@@ -33,6 +33,7 @@ const Smurf = props => {
             padding: "1%",
             cursor: "pointer"
           }}
+          onClick={_ => props.editSmurf(props.id)}
         >
           Edit Smurf
         </small>

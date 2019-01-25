@@ -74,6 +74,32 @@ class App extends Component {
     }
   };
 
+  editSmurf = id => {
+    {
+      this.state.smurfs.find(smurf => {
+        if (smurf.id === id) {
+          axios
+            .put(
+              `http://localhost:3333/smurfs/${smurf.id}`,
+              this.state.newSmurf
+            )
+            .then(response =>
+              this.setState({
+                smurfs: response.data,
+                newSmurf: {
+                  id: "",
+                  name: "",
+                  height: "",
+                  age: ""
+                }
+              })
+            )
+            .catch(error => console.log(error));
+        }
+      });
+    }
+  };
+
   render() {
     return (
       <div className="App">
@@ -97,6 +123,7 @@ class App extends Component {
               {...props}
               smurfs={this.state.smurfs}
               deleteSmurf={this.deleteSmurf}
+              editSmurf={this.editSmurf}
             />
           )}
         />
