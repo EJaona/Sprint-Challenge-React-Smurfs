@@ -27,13 +27,40 @@ class App extends Component {
 
   // Notice what your map function is looping over and returning inside of Smurfs.
   // You'll need to make sure you have the right properties on state and pass them down to props.
+
+  handleInputChange = e => {
+    this.setState({
+      newSmurf: {
+        [e.target.name]: e.target.value
+      }
+    });
+  };
+
+  addSmurf = event => {
+    event.preventDefault();
+    // add code to create the smurf using the api
+
+    this.setState(prevState => {
+      return {
+        smurfs: prevState.smurfs,
+        newSmurf: {
+          id: "",
+          name: event.target.value,
+          height: event.target.value,
+          height: event.target.value
+        }
+      };
+    });
+  };
+
   render() {
     return (
       <div className="App">
-        <SmurfForm smurf={this.state.newSmurf} />
-        {this.state.smurfs.map(smurf => (
-          <Smurfs smurfs={this.state.smurfs} />
-        ))}
+        <SmurfForm
+          smurf={this.state.newSmurf}
+          handleInputChange={this.handleInputChange}
+        />
+        <Smurfs smurfs={this.state.smurfs} />
       </div>
     );
   }
