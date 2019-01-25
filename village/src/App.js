@@ -31,25 +31,27 @@ class App extends Component {
   handleInputChange = e => {
     this.setState({
       newSmurf: {
+        ...this.state.newSmurf,
         [e.target.name]: e.target.value
       }
     });
   };
 
   addSmurf = event => {
-    event.preventDefault();
+    // event.preventDefault();
     // add code to create the smurf using the api
+    axios
+      .post("http://localhost:3333/smurfs", this.state.newSmurf)
+      .then(response => this.setState({ smurfs: response.data }))
+      .catch(error => console.log(error));
 
-    this.setState(prevState => {
-      return {
-        smurfs: prevState.smurfs,
-        newSmurf: {
-          id: "",
-          name: event.target.value,
-          height: event.target.value,
-          height: event.target.value
-        }
-      };
+    this.setState({
+      newSmurf: {
+        id: "",
+        name: "",
+        height: "",
+        age: ""
+      }
     });
   };
 
@@ -58,6 +60,7 @@ class App extends Component {
       <div className="App">
         <SmurfForm
           smurf={this.state.newSmurf}
+          addSmurf={this.addSmurf}
           handleInputChange={this.handleInputChange}
         />
         <Smurfs smurfs={this.state.smurfs} />
