@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Route, Link, NavLink } from "react-router-dom";
 
 import "./App.css";
 import SmurfForm from "./components/SmurfForm";
@@ -37,7 +38,7 @@ class App extends Component {
     });
   };
 
-  addSmurf = event => {
+  addSmurf = _ => {
     // event.preventDefault();
     // add code to create the smurf using the api
     axios
@@ -58,12 +59,23 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SmurfForm
-          smurf={this.state.newSmurf}
-          addSmurf={this.addSmurf}
-          handleInputChange={this.handleInputChange}
+        <Route
+          exact
+          path="/smurf-form"
+          render={props => (
+            <SmurfForm
+              {...props}
+              smurf={this.state.newSmurf}
+              addSmurf={this.addSmurf}
+              handleInputChange={this.handleInputChange}
+            />
+          )}
         />
-        <Smurfs smurfs={this.state.smurfs} />
+        <Route
+          exact
+          path="/"
+          render={props => <Smurfs {...props} smurfs={this.state.smurfs} />}
+        />
       </div>
     );
   }
